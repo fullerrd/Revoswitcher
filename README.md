@@ -23,6 +23,29 @@ If you want MiningPoolHub to automatically exhange your altcoins for a single pa
 # INSTALLATION
 ### 1) Install dependencies
 	`sudo apt install expect`
+        `sudo apt install nvidia-cuda-toolkit`
+Setting up xorg.conf WITHOUT X. Instructions from: https://forums.bunsenlabs.org/viewtopic.php?id=1380 
+Here is my cheatsheet for the Debian stable nvidia installation
+
+    NvidiaGraphicsDrivers
+    ---------------------
+    https://wiki.debian.org/NvidiaGraphicsDrivers
+
+    1)  Go to TTY1 (ctrl-alt-F1), then login as root: "sudo su -"
+
+    2)  Stop the X server with "systemctl stop lightdm.service"
+
+    3)  "apt-get install nvidia-settings nvidia-xconfig nvidia-driver"
+
+        This will also build the kernel nvidia module
+
+    4)  Create xorg server config file [ important to do this before restarting X!!]
+
+        "nvidia-xconfig"    [ error messages can usually be ignored ]
+
+    5)  Reboot, to blacklist nouveau
+
+    5)  set up monitors with nvidia-settings (although arandr should work)
 ### 2) Download and Extract REVOSWITCHER.zip to the Desktop, or directory of your choice.
 	`git clone https://github.com/Revolux/Revoswitcher`
 ### 3) Make switch.sh and overclock.sh executable

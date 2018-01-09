@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #MINER NAME
-NAME=amir.LEG2
+NAME=dfullerrowell.testrig
 
 
 ## DONT TOUCH THESE
