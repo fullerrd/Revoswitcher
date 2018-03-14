@@ -1,0 +1,310 @@
+{
+	"Device": "1080ti",
+	"DeviceName": "ASUS GeForce GTX 1080 Ti",
+	"AlgorithmSettings": [
+		{
+			"AlgorithmStringID": "excavator_server_Keccak",
+			"ccminerAlgorithm": "keccak",
+                        "nicehashAlgorithmID": 5,
+			"Enabled": false,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						953357832.7202942,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_NeoScrypt",
+			"Enabled": true,
+			"ccminerAlgorithm": "neoscrypt",
+                        "nicehashAlgorithmID": 8,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						1439320.9610618054,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_Lyra2REv2",
+			"Enabled": true,
+			"ccminerAlgorithm": "lyra2v2",
+                        "nicehashAlgorithmID": 14,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						60178544.65744689,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_DaggerHashimoto",
+			"Enabled": true,
+			"ccminerAlgorithm": "eth",
+                        "nicehashAlgorithmID": 20,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						25225631.32867133,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_DaggerHashimoto_Decred",
+			"Enabled": false,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						24513034.744712327,
+						1725717837.5914598
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				},
+				{
+					"BenchmarkID": "P0",
+					"ExtraLaunchParameters": "P=0",
+					"Speed": [
+						24287365.627498,
+						1709830729.9760191
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				},
+				{
+					"BenchmarkID": "P1",
+					"ExtraLaunchParameters": "P=1",
+					"Speed": [
+						23106840.431795876,
+						2388985657.533171
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_DaggerHashimoto_Pascal",
+			"Enabled": true,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						24064704.969813284,
+						673838990.4838065
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				},
+				{
+					"BenchmarkID": "P0",
+					"ExtraLaunchParameters": "P=0",
+					"Speed": [
+						23853885.63776632,
+						667909104.7687572
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				},
+				{
+					"BenchmarkID": "P1",
+					"ExtraLaunchParameters": "P=1",
+					"Speed": [
+						21260108.65657332,
+						907098223.5449207
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_DaggerHashimoto_Sia",
+			"Enabled": true,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						23406734.764017105,
+						1331583813.8512568
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				},
+				{
+					"BenchmarkID": "P0",
+					"ExtraLaunchParameters": "P=0",
+					"Speed": [
+						23348416.023667693,
+						1328319228.9700944
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				},
+				{
+					"BenchmarkID": "P1",
+					"ExtraLaunchParameters": "P=1",
+					"Speed": [
+						22553873.122917075,
+						1443448484.2187805
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_Decred",
+			"Enabled": true,
+			"ccminerAlgorithm": "decred",
+                        "nicehashAlgorithmID": 21,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						3978652912.437256,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_CryptoNight",
+			"Enabled": true,
+			"ccminerAlgorithm": "cryptonight",
+                        "nicehashAlgorithmID": 22,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						483.6272040302267,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_Lbry",
+			"Enabled": true,
+			"ccminerAlgorithm": "lbry",
+                        "nicehashAlgorithmID": 23,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						356316698.10869044,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_Equihash",
+			"Enabled": true,
+			"ccminerAlgorithm": "equihash",
+                        "nicehashAlgorithmID": 24,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						720.6979728919276,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				},
+				{
+					"BenchmarkID": "M0",
+					"ExtraLaunchParameters": "WC=2, M=0",
+					"Speed": [
+						410.7767492382877,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				},
+				{
+					"BenchmarkID": "M1",
+					"ExtraLaunchParameters": "WC=1, M=1",
+					"Speed": [
+						415.79410119095195,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_Pascal",
+			"Enabled": true,
+			"ccminerAlgorithm": "pascal????",
+                        "nicehashAlgorithmID": 25,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						1262424803.803284,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_Sia",
+			"Enabled": true,
+			"ccminerAlgorithm": "sia",
+                        "nicehashAlgorithmID": 27,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						2088154293.9389093,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		},
+		{
+			"AlgorithmStringID": "excavator_server_Blake2s",
+			"Enabled": true,
+			"ccminerAlgorithm": "blake2s",
+                        "nicehashAlgorithmID": 28,
+			"BenchmarkModes": [
+				{
+					"BenchmarkID": "Default",
+					"ExtraLaunchParameters": "",
+					"Speed": [
+						4053881800.119498,
+						0
+					],
+					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
+				}
+			]
+		}
+	]
+}
