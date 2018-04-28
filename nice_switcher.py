@@ -6,18 +6,21 @@ import thread
 import multiprocessing
 import signal
 from time import sleep
+import time
 from subprocess import call
 import os
 #from subprocess import call
 #from collections import namedtuple
 
-
+c = threading.Condition()
 btc_address = '1MGF8Q9L9PAggm5GTJSoefH8sZDsWWhGsT'
 rig_name = 'LinuxTestRig'
-log_file = ' >> miner.log'
-#log_file = ''
-#root_dir = '/home/miner/Desktop/Revoswitcher/'
-root_dir = '/etc/Revoswitcher/'
+#log_file = ' >> miner.log'
+log_file = ''
+root_dir = '/home/miner/Desktop/Revoswitcher/'
+#root_dir = '/etc/Revoswitcher/'
+accepted_work = False
+
 class StoppableThread(threading.Thread):
     """Thread class with a stop() method. The thread itself has to check
     regularly for the stopped() condition."""
@@ -35,7 +38,18 @@ class StoppableThread(threading.Thread):
 def get_algo():
   prof2_url = 'https://api.nicehash.com/api?method=simplemultialgo.info'
   prof_url = 'https://api.nicehash.com/api?method=stats.global.current'
-  prof_data = json.load(urllib2.urlopen(prof_url))
+  attempts = 0
+  while attempts < 3:
+     try:
+        prof_data = json.load(urllib2.urlopen(prof_url))
+        break
+     except:
+        attempts += 1
+        print('Failed to contact NiceHash\nWaiting 5 seconds, then trying again')
+        sleep(10)
+  else:
+      print('Could not communitcate with nicehash server')
+      return None,None
   #lyra2rev2_prof = float(prof_data['result']['stats'][14]['price'])
   #print(lyra2rev2_prof)
 
@@ -103,25 +117,42 @@ def run_process(exe):
 
 def monitor_thread(p, *args):
    print("Monitoring thread")
+   print("Thread in monitor poll is: " + str(p.poll))  
+   global accepted_work
+   accepted_work = False
    while(True):
+      sleep(0.1)
       line = p.stdout.readline()
       print(line)
-      yield line
+      if (str.find(str.lower(line),'accept') > -1):
+         print("A Share Has Been Accepted!")
+         accepted_work = True
+         time_accepted = time.time()
+      #sleep(2)
+      if (((p.poll() != None) and (p.poll() != 0))):
+         print("monitor thread has detected that that the mining thread has exited")
+         break
+      #yield line
 
 def get_miner(algo,port):
   if (algo == 'lyra2v2'):
      nh_algo = 'lyra2rev2'
+  elif (algo == 'eth'):
+     nh_algo = 'daggerhashimoto'
   else:
      nh_algo = algo
   if (algo == 'equihash'):
-     exe = root_dir + 'zcash/miner --eexit 3 --intensity 64 64 64 64 64 64 64 --cuda_devices 0 1 2 3 4 5 6 --templimit 80 --server ' + str(nh_algo) + '.usa.nicehash.com --port ' + str(port) + ' --user ' + btc_address + '.' + rig_name + ' --pass x' + log_file
-  elif(algo == 'neoscrypt'):
+     exe = root_dir + 'zcash/miner nvidia-cuda-dev/--eexit 3 --intensity 64 64 64 64 64 64 64 --cuda_devices 0 1 2 3 4 5 6 --templimit 80 --server ' + str(nh_algo) + '.usa.nicehash.com --port ' + str(port) + ' --user ' + btc_address + '.' + rig_name + ' --pass x' + log_file
+  elif (algo == 'neoscrypt'):
       exe = root_dir + 'ccminer/ccminer -r 0 -a ' + str(algo) + ' -o stratum+tcp://' + str(nh_algo) + '.usa.nicehash.com:' + str(port) + ' -O ' + btc_address + '.' + rig_name + ':x' + log_file
+  elif (nh_algo == 'daggerhashimoto'):
+      exe = root_dir + 'ethminer/ethminer -SP 2 -U -S ' + str(nh_algo) + '.usa.nicehash.com:' + str(port) + ' -O ' + btc_address + '.' + rig_name + ':x' + log_file
   else:
      exe = root_dir + 'ccminer/ccminer -r 0 -a ' + str(algo) + ' -o stratum+tcp://' + str(nh_algo) + '.usa.nicehash.com:' + str(port) + ' -O ' + btc_address + '.' + rig_name + ':x' + log_file
   return exe
 
 def run():
+  global accepted_work
   best_algo,port = get_algo()
   #Runimport threadouts, errs = proc.communicate(timeout=15)
   exe = get_miner(best_algo,port)
@@ -137,43 +168,40 @@ def run():
   #miner.start()
   p = subprocess.Popen(exe, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
   #monitor_output(p)
-  #monitor = threading.Thread(target = monitor_thread, args = (exe, 1))
+  monitor = threading.Thread(target = monitor_thread, args = (p, 1))
+  monitor.start()
+  
   print('Poll of process: ' + str(p.poll()))
-  sleep(0.1)
-  #print(type(p.stdout))
+  sleep(1)
+  #monitor.terminate()
+  #print(type(p.stdout))?
   print('Started mining ' + best_algo)
   print('Process ID: ' + str(p.pid))
-  print('Submitting shares for 5 minutes before checking for a more profitable algorithm')
-  sleep(300)
+  print('Submitting shares for 1 minute before checking for a more profitable algorithm')
+  for i in range (12):
+     sleep(5)
+     if (((p.poll() != None) and (p.poll() != 0))):
+        print('Mining thread stopped by itself unexpectedly')
+        print('Killing mining monitor')
+        #--------------
+        run()
+  #sleep(300)
+  #for i in range(300):
+  #    line = p.stdout.readline()
+  #    print(line) #yield line
+  print('Finished for loop')
   while (True):
      new_algo,new_port = get_algo()
      if ((new_algo != best_algo) or ((p.poll() != None) and (p.poll() != 0))):
          if (p.poll() != None):
             print('Mining thread stopped by itself unexpectedly')
             #print('Trying to start a new mining thread')
-            print('Now rebooting the rig')
+            run()
+            print('Rebooting the rig in 60 seconds!')
+            sleep(60)
             os.system('sudo reboot')
          print(new_algo + ' is now more profitable')
          print('Killing current mining thread')
-         #miner.terminate()
-         #sleep(2)
-         #miner.terminate()
-         #miner.terminate()
-         #miner.terminate()
-         #miner.kill() #KILL IS NOT A MULTIPROCESS OBJECT
-         #keep_running = False
-         #miner.join()
-         #/
-         #p.terminate()
-         #p.terminate()
-         #p.terminate()
-         #sleep(5)
-         #try:
-         #  p.kill()
-         #  p.kill()
-         #  p.kill()
-         #except:
-         #  print("Tried to kill process, but already dead")
          print('Process poll: ' + str(p.poll()))
          print('Process ID: ' + str(p.pid))
          #try:
@@ -182,6 +210,9 @@ def run():
          #   print("couldn't send ctrl+c signal")
          #print(p.poll())
          #sleep(1)
+         while (not accepted_work):
+            print("Waiting for at least one share to be submitted")
+            sleep(5)
          try:
             #p.send_signal(signal.SIGINT)
             #os.system('kill -SIGINT -' + str(p.pid))
@@ -199,14 +230,16 @@ def run():
          #miner = multiprocessing.Process(target = miner_thread, args = (exe, 1))
          print('--------------------------------------')
          print('Starting a new mining thread')
-         #p = subprocess.Popen(exe, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
-         p = subprocess.Popen(exe, shell=True)
+         p = subprocess.Popen(exe, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+         #monitor_output(p)
+         monitor = threading.Thread(target = monitor_thread, args = (p, 1))
+         monitor.start()
          print('Started mining '+ best_algo)
          sleep(.1)
          print('Process ID: ' + str(p.pid))
-         print('Submitting shares for 5 minutes before checking for a more profitable algorithm')
+         print('Submitting shares for 1 minutes before checking for a more profitable algorithm')
          #miner.start()
-         sleep(300)
+         sleep(60)
      else:
          #print(p.stdout.readline())
          print(best_algo + ' is still the most profitable')
@@ -242,7 +275,15 @@ def miner_thread(exe, *args):
 
 print('Attempting to run overclock script')
 os.system('./overclock.sh')
+
+#try:
 run()  
+#except:
+   #print('Finished the RUN() function')
+   ##print('Trying to start a new mining thread')
+   #print('Rebooting the rig in 60 seconds!')
+   #sleep(60)
+   #os.system('sudo reboot')
 #thread = Thread(target = threaded_function, args = (10, ))
 #thread.start()
 #system('ccminer/ccminer -r 0 -a ' + str(best_algo) + ' -o stratum+tcp://' + str(best_algo) + '.usa.nicehash.com:' + str(port)' -O 1MGF8Q9L9PAggm5GTJSoefH8sZDsWWhGsT.frankenstein:x');

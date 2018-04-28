@@ -55,7 +55,13 @@ Here is my cheatsheet for the Debian stable nvidia installation
 	`#MINER NAME`
 	`NAME=username.WORKERNAME`
 	Make sure your worker password is 'x'
-### 4) Add REVOSWITCHER to your startup commands 
+### 5) If ccminer is complaining about not finding libcudart.so.8.0
+	* Check if you have libcudart.so on you machine `locate libcudart.so`
+	* If you don't have any version of the library on your computer, install cuda toolkit (preferably version 8, but other versions sometimes work)
+	* If you have the library file, but the wrong version, then create a symbolic link to the latest version. `sudo ln -s libcudart.so.7.5.18 libcudart.so.8.0`
+	* If you're still not sure, then make sure the directory with the library is on your LD_LIBRARY_PATH environmental variable.
+
+### 6) Add REVOSWITCHER to your startup commands 
 To run, add the following line to your Startup Applications Preferences ("STARTUP - CHOOSE MINER HERE" on the Desktop of Revolux Miners)
 `screen -d -m -S REVOSWITCHER /home/revolux/Desktop/Revoswitcher/switch.sh`
 Replace `/home/revolux/Desktop/` with your install directory if necessary

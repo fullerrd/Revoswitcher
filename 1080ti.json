@@ -46,7 +46,7 @@
 					"BenchmarkID": "Default",
 					"ExtraLaunchParameters": "",
 					"Speed": [
-						60178544.65744689,
+						61178544.65744689,
 						0
 					],
 					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
@@ -63,7 +63,7 @@
 					"BenchmarkID": "Default",
 					"ExtraLaunchParameters": "",
 					"Speed": [
-						25225631.32867133,
+						32225631.32867133,
 						0
 					],
 					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
@@ -230,7 +230,7 @@
 					"BenchmarkID": "Default",
 					"ExtraLaunchParameters": "",
 					"Speed": [
-						720.6979728919276,
+						72.56979728919276,
 						0
 					],
 					"MinerBinaryHashID": "22d7e0a688e9ea8ce468249770c69831ebb7e79c"
